@@ -12,9 +12,11 @@ struct ContentView: View {
     @State private var meat = 0
     let meats = ["Asada", "Pastor", "Cabeza"]
     
-    @State private var quantity = 1
+    @State private var quantity = 2
     
     @State private var specialRequest = false
+    @State private var cilantroAndOnions = false
+    @State private var salsa = false
     
     var body: some View {
         NavigationView {
@@ -25,18 +27,23 @@ struct ContentView: View {
                             Text(meats[$0])
                         }
                     }
-                    Stepper("Number of tacos: \(quantity)", value: $quantity, in: 1...20)
+                    Stepper("Number of tacos: \(quantity)", value: $quantity, in: 2...20)
                 }
                 
                 Section {
-                    Toggle(isOn: $specialRequest) {
-                        Text("Cilantro and Onions")
+                    Toggle("Special request?", isOn: $specialRequest)
+                    if specialRequest {
+                        Toggle("Cilantro and onions", isOn: $cilantroAndOnions)
+                        Toggle("Salsa", isOn: $salsa)
                     }
+                        
                 }
 
                 Section {
-                    Button("Order") {
-                        print("your tacos de \(meats[meat]) are on the way")
+                    NavigationLink {
+                        Text("your order of \(quantity) \(meats[meat]) is on its way")
+                    } label: {
+                        Text("Order")
                     }
                 }
             }
