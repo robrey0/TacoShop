@@ -8,40 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State private var meat = 0
-    let meats = ["Asada", "Pastor", "Cabeza"]
-    
-    @State private var quantity = 2
-    
-    @State private var specialRequest = false
-    @State private var cilantroAndOnions = false
-    @State private var salsa = false
+    @StateObject var order = Order()
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Picker("Select your meat", selection: $meat) {
-                        ForEach(meats.indices) {
-                            Text(meats[$0])
+                    Picker("Select your meat", selection: $order.meat) {
+                        ForEach(Order.meats.indices) {
+                            Text(Order.meats[$0])
                         }
                     }
-                    Stepper("Number of tacos: \(quantity)", value: $quantity, in: 2...20)
+                    Stepper("Number of tacos: \(order.quantity)", value: $order.quantity, in: 2...20)
                 }
                 
                 Section {
-                    Toggle("Special request?", isOn: $specialRequest)
-                    if specialRequest {
-                        Toggle("Cilantro and onions", isOn: $cilantroAndOnions)
-                        Toggle("Salsa", isOn: $salsa)
+                    Toggle("Special request?", isOn: $order.specialRequest)
+                    if order.specialRequest {
+                        Toggle("Cilantro and onions", isOn: $order.cilantroAndOnions)
+                        Toggle("Salsa", isOn: $order.salsa)
                     }
                         
                 }
 
                 Section {
                     NavigationLink {
-                        Text("your order of \(quantity) \(meats[meat]) is on its way")
+                        AdressView(order: order)
+                        //Text("your order of \(order.quantity) \(Order.meats[order.meat]) is on its way")
                     } label: {
                         Text("Order")
                     }
