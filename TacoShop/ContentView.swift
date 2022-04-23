@@ -34,7 +34,6 @@ struct ContentView: View {
                 Section {
                     NavigationLink {
                         AdressView(order: order)
-                        //Text("your order of \(order.quantity) \(Order.meats[order.meat]) is on its way")
                     } label: {
                         Text("Order")
                     }
