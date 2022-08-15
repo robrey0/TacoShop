@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Order: ObservableObject {
+class Order: ObservableObject, Codable {
     
     init() {}
     
@@ -55,7 +55,18 @@ class Order: ObservableObject {
     @Published var city = ""
     @Published var zip = ""
     
+    var isValidForm: Bool {
+        if !name.isEmpty && !street.isEmpty && !city.isEmpty && !zip.isEmpty {
+            return false
+        }
+        return true
+    }
     
     
+    var cost: Int {
+        get {
+            quantity * 2
+        }
+    }
     
 }

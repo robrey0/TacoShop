@@ -20,12 +20,11 @@ struct AdressView: View {
             }
             
             Section {
-                    //print("your order of \(order.quantity) \(Order.meats[order.meat]) is on its way\nThanks \(order.name)")
                     NavigationLink {
                         CheckOutView(order: order)
                     } label : {
                         Text("CheckOut")
-                    }
+                    }.disabled(order.isValidForm)
             }
         }
         .navigationTitle("Delivery Details")
